@@ -18,12 +18,33 @@ body {
   justify-content: center;
 }
 
-.main {
-  padding: 20px 60px;
-}
+// .main {
+//   padding: 20px 60px;
+// }
 
 .search {
   margin-bottom: 1.5rem;
+}
+
+.form-control.input-search {
+  background-color: transparent;
+  border: none;
+}
+
+.navbar {
+  background-color: #e7e7e7;
+  border-radius: 0.25rem;
+}
+
+.form-searchbar {
+  width: 100%;
+}
+
+.btn.btn-loupe {
+  height: 100%;
+  border: none;
+  color: #000;
+  font-size: 1.5rem;
 }
 
 .receipts {
@@ -36,14 +57,24 @@ body {
   padding: 0;
 }
 
-.h-100 {
-  width: 380px;
+.container-fluid {
+  padding: 0;
 }
 
 .img-container {
-  width: 379px;
-  height: 178px;
+  width: 100%;
+  height: 200px;
   overflow: hidden;
+}
+
+.card.h-100 {
+  border-color: transparent;
+}
+
+.card-body {
+  background-color: #e7e7e7;
+  border-bottom-left-radius: calc(0.25rem - 1px);
+  border-bottom-right-radius: calc(0.25rem - 1px);
 }
 
 .col-text {
@@ -53,4 +84,8 @@ body {
 
 .ingredient {
   margin-right: 0.2rem;
+}
+
+.footer {
+  height: 40px;
 }
