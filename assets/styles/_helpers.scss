@@ -1,0 +1,11 @@
+.height-200 {
+    height: 200px !important;
+}
+
+.bg-marine {
+    background-color: map-get($custom-colors, "marine") !important;
+}
+
+.bg-tomato {
+    background-color: map-get($custom-colors, "tomato") !important;
+}

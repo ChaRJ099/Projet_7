@@ -21,23 +21,23 @@
     </header>
     <main class="main container-fluid">
       <div class="search d-flex flex-column gap-3">
-        <nav class="navbar navbar-light">
+        <nav class="navbar bg-maingrey rounded">
           <div class="container-fluid">
             <form class="form-searchbar d-flex">
               <input
-                class="form-control me-2 input-search"
+                class="form-control me-2 input-search border-0 bg-transparent"
                 type="search"
                 placeholder="Rechercher une recette"
                 aria-label="Search"
               />
-              <button class="btn btn-outline-success btn-loupe" type="button">
+              <button class="btn btn-outline-primary btn-loupe" type="button">
                 <i class="fa-solid fa-magnifying-glass"></i>
               </button>
             </form>
           </div>
         </nav>
       </div>
-      <div class="btn-group-container">
+      <div class="btn-group-container mb-4 mt-3">
         <div class="btn-group">
           <button
             type="button"
@@ -47,398 +47,47 @@
           >
             Ingrédients
           </button>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu bg-primary custom-dropdown">
             <li><a class="dropdown-item" href="#">Ingrédients</a></li>
             <li><a class="dropdown-item" href="#">Another action</a></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
-            <li><hr class="dropdown-divider" /></li>
             <li><a class="dropdown-item" href="#">Separated link</a></li>
           </ul>
         </div>
         <div class="btn-group">
           <button
             type="button"
-            class="btn btn-marine dropdown-toggle"
+            class="btn btn-marine dropdown-toggle text-white"
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
             Appareils
           </button>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu custom-dropdown bg-marine">
             <li><a class="dropdown-item" href="#">Appareils</a></li>
             <li><a class="dropdown-item" href="#">Another action</a></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
-            <li><hr class="dropdown-divider" /></li>
             <li><a class="dropdown-item" href="#">Separated link</a></li>
           </ul>
         </div>
         <div class="btn-group">
           <button
             type="button"
-            class="btn btn-tomato dropdown-toggle"
+            class="btn btn-tomato dropdown-toggle text-white"
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
             Ustensiles
           </button>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu custom-dropdown bg-tomato">
             <li><a class="dropdown-item" href="#">Ustensiles</a></li>
             <li><a class="dropdown-item" href="#">Another action</a></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
-            <li><hr class="dropdown-divider" /></li>
             <li><a class="dropdown-item" href="#">Separated link</a></li>
           </ul>
         </div>
       </div>
       <div class="recipes row row-cols-1 row-cols-md-3 g-4">
-          <!-- <div class="col">
-            <div class="card h-100 col">
-              <div class="img-container">
-                <img
-                  src="https://picsum.photos/300"
-                  class="card-img-top"
-                  alt="..."
-                />
-              </div>
-
-              <div class="card-body">
-                <div class="d-flex justify-content-between">
-                  <h5 class="card-title">Poisson Cru à la tahitienne</h5>
-                  <div>
-                    <i class="fa-regular fa-clock"></i>
-                    <span>60 min</span>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col col-text">
-                    <ul class="d-flex flex-column">
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">
-                          Thon Rouge (ou blanc):
-                        </div>
-                        200g
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Concombre:</div>
-                        1
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Tomate:</div>
-                        2
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Carotte:</div>
-                        1
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Citron Vert:</div>
-                        5
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Lait de coco:</div>
-                        100ml
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="col col-text">
-                    Découper le thon en dés, mettre dans un plat et recouvrir de
-                    jus de citron vert (mieux vaut prendre un plat large et peu
-                    profond). Laisser reposer au réfrigérateur au moins 2...
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card h-100">
-              <div class="img-container">
-                <img
-                  src="https://picsum.photos/400"
-                  class="card-img-top"
-                  alt="..."
-                />
-              </div>
-
-              <div class="card-body">
-                <div class="d-flex justify-content-between">
-                  <h5 class="card-title">Poisson Cru à la tahitienne</h5>
-                  <div>
-                    <i class="fa-regular fa-clock"></i>
-                    <span>60 min</span>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col col-text">
-                    <ul class="d-flex flex-column">
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">
-                          Thon Rouge (ou blanc):
-                        </div>
-                        200g
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Concombre:</div>
-                        1
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Tomate:</div>
-                        2
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Carotte:</div>
-                        1
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Citron Vert:</div>
-                        5
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Lait de coco:</div>
-                        100ml
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="col col-text">
-                    Découper le thon en dés, mettre dans un plat et recouvrir de
-                    jus de citron vert (mieux vaut prendre un plat large et peu
-                    profond). Laisser reposer au réfrigérateur au moins 2...
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card h-100">
-              <div class="img-container">
-                <img
-                  src="https://picsum.photos/500"
-                  class="card-img-top"
-                  alt="..."
-                />
-              </div>
-
-              <div class="card-body">
-                <div class="d-flex justify-content-between">
-                  <h5 class="card-title">Poisson Cru à la tahitienne</h5>
-                  <div>
-                    <i class="fa-regular fa-clock"></i>
-                    <span>60 min</span>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col col-text">
-                    <ul class="d-flex flex-column">
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">
-                          Thon Rouge (ou blanc):
-                        </div>
-                        200g
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Concombre:</div>
-                        1
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Tomate:</div>
-                        2
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Carotte:</div>
-                        1
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Citron Vert:</div>
-                        5
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Lait de coco:</div>
-                        100ml
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="col col-text">
-                    Découper le thon en dés, mettre dans un plat et recouvrir de
-                    jus de citron vert (mieux vaut prendre un plat large et peu
-                    profond). Laisser reposer au réfrigérateur au moins 2...
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card h-100">
-              <div class="img-container">
-                <img
-                  src="https://picsum.photos/600"
-                  class="card-img-top"
-                  alt="..."
-                />
-              </div>
-
-              <div class="card-body">
-                <div class="d-flex justify-content-between">
-                  <h5 class="card-title">Poisson Cru à la tahitienne</h5>
-                  <div>
-                    <i class="fa-regular fa-clock"></i>
-                    <span>60 min</span>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col col-text">
-                    <ul class="d-flex flex-column">
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">
-                          Thon Rouge (ou blanc):
-                        </div>
-                        200g
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Concombre:</div>
-                        1
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Tomate:</div>
-                        2
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Carotte:</div>
-                        1
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Citron Vert:</div>
-                        5
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Lait de coco:</div>
-                        100ml
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="col col-text">
-                    Découper le thon en dés, mettre dans un plat et recouvrir de
-                    jus de citron vert (mieux vaut prendre un plat large et peu
-                    profond). Laisser reposer au réfrigérateur au moins 2...
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card h-100">
-              <div class="img-container">
-                <img
-                  src="https://picsum.photos/700"
-                  class="card-img-top"
-                  alt="..."
-                />
-              </div>
-
-              <div class="card-body">
-                <div class="d-flex justify-content-between">
-                  <h5 class="card-title">Poisson Cru à la tahitienne</h5>
-                  <div>
-                    <i class="fa-regular fa-clock"></i>
-                    <span>60 min</span>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col col-text">
-                    <ul class="d-flex flex-column">
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">
-                          Thon Rouge (ou blanc):
-                        </div>
-                        200g
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Concombre:</div>
-                        1
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Tomate:</div>
-                        2
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Carotte:</div>
-                        1
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Citron Vert:</div>
-                        5
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Lait de coco:</div>
-                        100ml
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="col col-text">
-                    Découper le thon en dés, mettre dans un plat et recouvrir de
-                    jus de citron vert (mieux vaut prendre un plat large et peu
-                    profond). Laisser reposer au réfrigérateur au moins 2...
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card h-100">
-              <div class="img-container">
-                <img
-                  src="https://picsum.photos/800"
-                  class="card-img-top"
-                  alt="..."
-                />
-              </div>
-
-              <div class="card-body">
-                <div class="d-flex justify-content-between">
-                  <h5 class="card-title">Poisson Cru à la tahitienne</h5>
-                  <div>
-                    <i class="fa-regular fa-clock"></i>
-                    <span>60 min</span>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col col-text">
-                    <ul class="d-flex flex-column">
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">
-                          Thon Rouge (ou blanc):
-                        </div>
-                        200g
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Concombre:</div>
-                        1
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Tomate:</div>
-                        2
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Carotte:</div>
-                        1
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Citron Vert:</div>
-                        5
-                      </li>
-                      <li class="d-flex flex-row align-items-end">
-                        <div class="fw-bold ingredient">Lait de coco:</div>
-                        100ml
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="col col-text">
-                    Découper le thon en dés, mettre dans un plat et recouvrir de
-                    jus de citron vert (mieux vaut prendre un plat large et peu
-                    profond). Laisser reposer au réfrigérateur au moins 2...
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> -->
       </div>
     </main>
     <footer class="footer container-fluid"></footer>

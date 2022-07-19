@@ -1,7 +1,8 @@
 // Create your own map
 $custom-colors: (
-  "tomato": rgb(237, 100, 84),
-  "marine": #68d9a5
+  "tomato": #ED6454,
+  "marine": #68D9A4,
+  "maingrey": #e7e7e7
   );
 
 // Merge the maps
@@ -12,7 +13,6 @@ body {
 }
 
 .header {
-  padding: 20px 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,17 +22,15 @@ body {
 //   padding: 20px 60px;
 // }
 
-.search {
-  margin-bottom: 1.5rem;
-}
 
-.form-control.input-search {
-  background-color: transparent;
-  border: none;
-}
+
+// .form-control.input-search {
+//   background-color: transparent;
+//   border: none;
+// }
 
 .navbar {
-  background-color: #e7e7e7;
+  background-color: map-get($custom-colors, "maingrey");
   border-radius: 0.25rem;
 }
 
@@ -47,18 +45,8 @@ body {
   font-size: 1.5rem;
 }
 
-.recipes {
-  margin-top: 1.5rem;
-}
-
 .recipes ul {
   list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-.container-fluid {
-  padding: 0;
 }
 
 .img-container {
@@ -67,14 +55,9 @@ body {
   overflow: hidden;
 }
 
-.card.h-100 {
-  border-color: transparent;
-}
-
 .card-body {
   background-color: #e7e7e7;
-  border-bottom-left-radius: calc(0.25rem - 1px);
-  border-bottom-right-radius: calc(0.25rem - 1px);
+  overflow: hidden;
 }
 
 .col-text {
@@ -88,4 +71,16 @@ body {
 
 .footer {
   height: 40px;
+}
+
+.card-description {
+  max-height: 130px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+}
+
+.custom-dropdown a {
+  color: white;
 }
