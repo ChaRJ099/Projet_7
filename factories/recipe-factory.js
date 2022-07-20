@@ -1,15 +1,11 @@
 const recipeFactory = {
 
-    displayRecipe(data) {
+    displayRecipe(data, i) {
 
-      // const ingredients = data.ingredients;
-      // let ingredientsArray = [];
-      // for(let i=0; i < ingredients.length; i++) {
-      //   ingredientsArray = [...ingredients];
-      //   console.log(ingredientsArray);
-      // }
+
 
       const col = document.createElement("div");
+      
       col.classList.add("border-white", "col");
 
       const recipesContainer = document.querySelector(".recipes");      
@@ -34,33 +30,8 @@ const recipeFactory = {
             </div>
             <div class="row">
               <div class="col col-text">
-                <ul class="d-flex flex-column p-0">
-                  <li class="d-flex flex-row align-items-end">
-                    <div class="fw-bold ingredient">
-                      Thon Rouge (ou blanc):
-                    </div>
-                    200g
-                  </li>
-                  <li class="d-flex flex-row align-items-end">
-                    <div class="fw-bold ingredient">Concombre:</div>
-                    1
-                  </li>
-                  <li class="d-flex flex-row align-items-end">
-                    <div class="fw-bold ingredient">Tomate:</div>
-                    2
-                  </li>
-                  <li class="d-flex flex-row align-items-end">
-                    <div class="fw-bold ingredient">Carotte:</div>
-                    1
-                  </li>
-                  <li class="d-flex flex-row align-items-end">
-                    <div class="fw-bold ingredient">Citron Vert:</div>
-                    5
-                  </li>
-                  <li class="d-flex flex-row align-items-end">
-                    <div class="fw-bold ingredient">Lait de coco:</div>
-                    100ml
-                  </li>
+                <ul class="d-flex flex-column p-0 ingredient-list-${i}">
+                  
                 </ul>
               </div>
               <div class="col col-text card-description">
@@ -70,7 +41,31 @@ const recipeFactory = {
           </div>
         </div>
       `;
-
+      
       recipesContainer.appendChild(col);
+      
+
+      const ingredients = data.ingredients;
+      
+      const ingredientContainer = document.querySelector(".ingredient-list-"+i);
+
+      for(let i=0; i < ingredients.length; i++) {
+
+        const ingredientElem = document.createElement("li");
+        ingredientElem.classList.add("d-flex", "flex-row", "align-items-end", "ingredient-"+i);
+        console.log(i);
+
+        ingredientContainer.appendChild(ingredientElem);
+
+        let liChild = document.createElement("div");
+        liChild.classList.add("d-flex", "m-0", "ingredient", "elem-"+i);
+        liChild.innerHTML = `
+        <div class="fw-bold ingredient">${ingredients[i].ingredient}:</div>
+        ${ingredients[i].quantity} ${ingredients[i].unit}
+        `
+        ingredientElem.appendChild(liChild);
+        // document.querySelector(".elem-"+i).appendChild(liChild);
+
+      }
     }
 }
