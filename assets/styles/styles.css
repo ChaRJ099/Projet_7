@@ -46,6 +46,12 @@ body {
   overflow: hidden;
 }
 
+.card-title {
+  font-size: 1.12rem;
+  display: inline-block;
+  width: 80%;
+}
+
 .card-body {
   background-color: #e7e7e7;
   overflow: hidden;
@@ -74,6 +80,20 @@ body {
 
 .custom-dropdown a {
   color: white;
+}
+
+.dropdown-menu.show {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  max-height: 360px;
+  width: 540px;
 }
 
 .height-200 {

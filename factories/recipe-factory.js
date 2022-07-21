@@ -28,13 +28,13 @@ const recipeFactory = {
                 <span>${data.time} min</span>
               </div>
             </div>
-            <div class="row">
-              <div class="col col-text">
+            <div class="d-flex w-100">
+              <div class="col col-text pe-2">
                 <ul class="d-flex flex-column p-0 ingredient-list-${i}">
                   
                 </ul>
               </div>
-              <div class="col col-text card-description">
+              <div class="col col-text card-description p-0 w-100">
               ${data.description}
               </div>
             </div>
@@ -53,18 +53,17 @@ const recipeFactory = {
 
         const ingredientElem = document.createElement("li");
         ingredientElem.classList.add("d-flex", "flex-row", "align-items-end", "ingredient-"+i);
-        console.log(i);
 
         ingredientContainer.appendChild(ingredientElem);
 
         let liChild = document.createElement("div");
         liChild.classList.add("d-flex", "m-0", "ingredient", "elem-"+i);
+        
         liChild.innerHTML = `
-        <div class="fw-bold ingredient">${ingredients[i].ingredient}:</div>
-        ${ingredients[i].quantity} ${ingredients[i].unit}
+          ${ingredients[i].ingredient} :
+          ${ingredients[i].quantity} ${ingredients[i].unit}
         `
         ingredientElem.appendChild(liChild);
-        // document.querySelector(".elem-"+i).appendChild(liChild);
 
       }
     }
