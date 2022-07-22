@@ -58,10 +58,21 @@ const recipeFactory = {
 
         let liChild = document.createElement("div");
         liChild.classList.add("d-flex", "m-0", "ingredient", "elem-"+i);
+
+        let quantity = "";
+        let unit = "";
+
+        if(ingredients[i].quantity) {
+          quantity = ":&thinsp;"+ingredients[i].quantity;
+        }
+
+        if(ingredients[i].unit) {
+          unit = ingredients[i].unit;
+        }
         
         liChild.innerHTML = `
-          ${ingredients[i].ingredient} :
-          ${ingredients[i].quantity} ${ingredients[i].unit}
+          <span class="fw-bold">${ingredients[i].ingredient}&thinsp;</span>
+          ${quantity} ${unit}
         `
         ingredientElem.appendChild(liChild);
 
