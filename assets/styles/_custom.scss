@@ -76,14 +76,3 @@ body {
   -webkit-box-orient: vertical;
 }
 
-.custom-dropdown a {
-  color: white;
-}
-
-.dropdown-menu.show {
-  display: flex !important;
-  flex-direction: column;
-  flex-wrap: wrap;
-  max-height: 360px;
-  width: 540px;
-}
