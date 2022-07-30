@@ -76,19 +76,23 @@ const appareilObserver = new MutationObserver(function () {
   let dropdownItemsAppareils = document.querySelectorAll(
     ".group-appareils .dropdown-item"
   );
-  addTagEvent(dropdownItemsAppareils, tagsChoiceAppareils);
+  addTagEvent(dropdownItemsAppareils, tagsChoiceAppareils, "tag-elem_marine");
 });
 const ingredientObserver = new MutationObserver(function () {
   let dropdownItemsIngredients = document.querySelectorAll(
     ".group-ingredients .dropdown-item"
   );
-  addTagEvent(dropdownItemsIngredients, tagsChoiceIngredients);
+  addTagEvent(
+    dropdownItemsIngredients,
+    tagsChoiceIngredients,
+    "tag-elem_primary"
+  );
 });
 const ustensilesObserver = new MutationObserver(function () {
   let dropdownItemsUstensiles = document.querySelectorAll(
     ".group-ustensiles .dropdown-item"
   );
-  addTagEvent(dropdownItemsUstensiles, tagsChoiceUstensiles);
+  addTagEvent(dropdownItemsUstensiles, tagsChoiceUstensiles, "tag-elem_tomato");
 });
 
 appareilObserver.observe(tagListAppareils, { subtree: true, childList: true });
@@ -219,14 +223,38 @@ function createTag(tags, elem) {
 }
 
 // pour chaque tag on ajoute un event au click pour permettre d'ajouter le tag au tag selectionné
-function addTagEvent(dropdownItems, tagChoice) {
+function addTagEvent(dropdownItems, tagChoice, tagClass) {
   dropdownItems.forEach((elem) => {
     elem.addEventListener("click", (event) => {
       const tagElement = document.createElement("div");
+      const closeIcon = document.createElement("i");
+      closeIcon.classList.add(
+        "fa-regular",
+        "fa-circle-xmark",
+        "ms-2",
+        "tag-close"
+      );
       tagElement.textContent = event.target.textContent;
-      tagElement.classList.add("d-flex", "tag-elem", "tag-elem_primary");
-      tagChoice.push(event.target.textContent);
-      tagsContainer.appendChild(tagElement);
+      tagElement.classList.add(
+        "d-flex",
+        "tag-elem",
+        tagClass,
+        "justify-content-center",
+        "align-items-center",
+        "rounded"
+      );
+      tagElement.setAttribute("data-id", event.target.textContent);
+      closeIcon.setAttribute("data-id", event.target.textContent);
+      const tagFound = tagChoice.find((elem) => {
+        return elem == event.target.textContent;
+      });
+      if (tagFound == undefined) {
+        tagChoice.push(event.target.textContent);
+        tagsContainer.appendChild(tagElement);
+        tagElement.appendChild(closeIcon);
+        console.log(tagChoice);
+        removeTag(event.target.textContent, tagChoice);
+      }
     });
   });
 }
@@ -254,8 +282,17 @@ function getTagsUstensiles() {
 }
 
 function filterTags(tags) {
-  console.log(tags);
   return tags.filter(function (element, index) {
     return tags.indexOf(element) == index;
+  });
+}
+
+function removeTag(id, tagChoice) {
+  const tagToRemove = document.querySelector(".tag-elem[data-id='" + id + "']");
+  const tagClose = document.querySelector(".tag-close[data-id='" + id + "']");
+
+  tagClose.addEventListener("click", () => {
+    tagChoice.splice(tagChoice.indexOf(id), 1);
+    tagToRemove.remove();
   });
 }

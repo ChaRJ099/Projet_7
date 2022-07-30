@@ -1,46 +1,51 @@
 .dropdown-menu {
     width: 350px;
     background: lightgrey;
-  }
-  .dropdown-menu ul {
-    list-style-type: none;
-    display: flex;
-    flex-wrap: wrap;
-  }
+
+    &.show {
+      display: flex !important;
+      flex-direction: column;
+      flex-wrap: wrap;
+      max-height: 360px;
+      width: 540px;
+    }
+
+    ul {
+      list-style-type: none;
+      display: flex;
+      flex-wrap: wrap;
   
-  .dropdown-menu ul li {
-    width: 33%;
-  }
-  
-  .tag-search {
-    display: none;
+      li {
+        width: 33%;
+      }
+    }  
   }
   
   .tag-elem {
     width: auto;
-    padding: 10px 5px;
+    padding: 10px 20px;
     margin: 5px;
-    height: 30px;
-  }
-  
-  .tag-elem.tag-elem_primary {
-    background-color: blue;
-  }
-  
-  .tag-elem.tag-elem_grey {
-    background-color: grey;
-  }
+    height: 37px;
+    color: #fff;
+    font-family: "lato";
+    font-size: 14px;
+    font-weight: 700;
 
+    &_primary {
+      background-color: $primary;
+    }
+
+    &_tomato {
+      background-color: map-get($custom-colors, "tomato");
+    }
+
+    &_marine {
+      background-color: map-get($custom-colors, "marine");
+    }
+  }
+  
   .custom-dropdown a {
     color: white;
-  }
-  
-  .dropdown-menu.show {
-    display: flex !important;
-    flex-direction: column;
-    flex-wrap: wrap;
-    max-height: 360px;
-    width: 540px;
   }
   
   .tag-search {
@@ -53,18 +58,18 @@
     outline: 0;
     font-size: 18px;
     font-family: "lato";
+
+    &-result {
+      font-size: 18px;
+      font-family: "lato";
+    }
   }
   
   .tag-search::placeholder {
     color: #fff;
   }
   
-  .tag-search-result {
-    font-size: 18px;
-    font-family: "lato";
-  }
-  
-  .tags-list {
+  .tag-list {
     list-style-type: none;
     flex-wrap: wrap;
     width: 100%;
@@ -75,13 +80,13 @@
     font-weight: 400;
     font-family: "lato";
     overflow: auto;  
-  }
+
+    li {
+      width: 180px;
   
-  .tags-list li {
-    width: 180px;
-  }
-  
-  .tags-list li a {
-    color: #fff;
-    width: 180px;
+      a {
+        color: #fff;
+        width: 180px;
+      }
+    }
   }
