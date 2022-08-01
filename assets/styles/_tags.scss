@@ -7,16 +7,28 @@
       flex-direction: column;
       flex-wrap: wrap;
       max-height: 360px;
-      width: 540px;
+      width: 652px;
+      max-width: 100%;
+      overflow: auto;
+      margin-top: -5px !important;
+      border: none;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
     }
 
     ul {
       list-style-type: none;
       display: flex;
       flex-wrap: wrap;
+      
   
       li {
         width: 33%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #fff;
+        font-family: 'lato';
+        cursor: pointer;
       }
     }  
   }
@@ -43,6 +55,10 @@
       background-color: map-get($custom-colors, "marine");
     }
   }
+
+  .tag-close {
+    cursor: pointer;
+  }
   
   .custom-dropdown a {
     color: white;
@@ -50,7 +66,8 @@
   
   .tag-search {
     display: none;
-    width: 100%;
+    width: 570px;
+    max-width: 100%;
     appearance: none;
     border: 0;
     background-color: transparent;
@@ -63,7 +80,20 @@
       font-size: 18px;
       font-family: "lato";
     }
+
+    &-name {
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+      font-family: 'lato';
+    }
   }
+
+  .btn.tag-search-button {
+    display: flex;
+    max-width: 100%;
+  }
+
   
   .tag-search::placeholder {
     color: #fff;
@@ -73,20 +103,59 @@
     list-style-type: none;
     flex-wrap: wrap;
     width: 100%;
-    max-width: 567px;
     height: 100%;
     max-height: 700px;
     font-size: 18px;
     font-weight: 400;
-    font-family: "lato";
-    overflow: auto;  
+    font-family: "lato";     
+  }
 
-    li {
-      width: 180px;
-  
-      a {
-        color: #fff;
-        width: 180px;
-      }
+  .dropdown-toggle::after {
+    display: none !important;
+  }
+
+  .dropdown-toggle .fa-solid {
+    color: #fff;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 30px;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .dropdown-toggle {
+    .fa-angle-up {
+      display: none;
     }
+
+    .fa-angle-down {
+      display: flex;
+    }
+
+  } 
+
+  .dropdown-toggle.show {
+    .fa-angle-up {
+      display: flex;
+    }
+
+    .fa-angle-down {
+      display: none;
+    }
+
+  } 
+
+  .btn-open {
+    width: 570px;
+    max-width: 100%;
+  }
+
+  .btn-group {
+    max-width: 90%;
+  }
+
+  .tag-search-name {
+    margin-right: 25px;
   }

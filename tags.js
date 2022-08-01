@@ -45,6 +45,16 @@ const dropdownToggleAppareils = document.querySelector(
 const dropdownToggleUstensiles = document.querySelector(
   ".group-ustensiles .dropdown-toggle"
 );
+const dropdownMenuIngredients = document.querySelector(
+  ".group-ingredients .dropdown-menu"
+);
+const dropdownMenuAppareils = document.querySelector(
+  ".group-appareils .dropdown-menu"
+);
+const dropdownMenuUstensiles = document.querySelector(
+  ".group-ustensiles .dropdown-menu"
+);
+const btnIconUp = document.querySelectorAll(".btn-group-tag .fa-angle-up");
 
 // Créé un objet dropdown qui hérite des méthodes de bootstrap dropdown
 const dropdownIngredients = new bootstrap.Dropdown(dropdownToggleIngredients);
@@ -121,40 +131,7 @@ createTag(filteredIngredients, ".list-ingredients");
 createTag(filteredAppareils, ".list-appareils");
 createTag(filteredUstensiles, ".list-ustensiles");
 
-tagSearchButton.forEach((elem) => {
-  elem.addEventListener("click", (event) => {
-    event.stopPropagation();
-    elem.querySelector(".tag-search").style.display = "block";
-    elem.querySelector(".tag-search-name").style.display = "none";
-    if (elem == tagSearchButtonAppareils) {
-      inputIngredients.style.display = "none";
-      inputUstensiles.style.display = "none";
-      inputNameIngredients.style.display = "block";
-      inputNameUstensiles.style.display = "block";
-      dropdownIngredients.hide();
-      dropdownAppareils.show();
-      dropdownUstensiles.hide();
-    }
-    if (elem == tagSearchButtonIngredients) {
-      inputAppareils.style.display = "none";
-      inputUstensiles.style.display = "none";
-      inputNameAppareils.style.display = "block";
-      inputNameUstensiles.style.display = "block";
-      dropdownAppareils.hide();
-      dropdownIngredients.show();
-      dropdownUstensiles.hide();
-    }
-    if (elem == tagSearchButtonUstensiles) {
-      inputAppareils.style.display = "none";
-      inputIngredients.style.display = "none";
-      inputNameAppareils.style.display = "block";
-      inputNameIngredients.style.display = "block";
-      dropdownAppareils.hide();
-      dropdownIngredients.hide();
-      dropdownUstensiles.show();
-    }
-  });
-});
+toogleSearch(tagSearchButton);
 
 buttonsGroup.forEach((elem) => {
   elem.addEventListener("click", (event) => {
@@ -162,16 +139,15 @@ buttonsGroup.forEach((elem) => {
   });
 });
 
-document.addEventListener("click", (event) => {
-  tagsSearch.forEach((elem) => {
-    elem.style.display = "none";
+document.addEventListener("click", () => {
+  hideAll();
+});
+
+btnIconUp.forEach((elem) => {
+  elem.addEventListener("click", (event) => {
+    event.stopPropagation();
+    hideAll();
   });
-  tagsSearchName.forEach((elem) => {
-    elem.style.display = "block";
-  });
-  dropdownAppareils.hide();
-  dropdownIngredients.hide();
-  dropdownUstensiles.hide();
 });
 
 tagsSearch.forEach((elem) => {
@@ -288,11 +264,72 @@ function filterTags(tags) {
 }
 
 function removeTag(id, tagChoice) {
-  const tagToRemove = document.querySelector(".tag-elem[data-id='" + id + "']");
-  const tagClose = document.querySelector(".tag-close[data-id='" + id + "']");
+  const tagToRemove = document.querySelector(`.tag-elem[data-id="${id}"]`);
+  const tagClose = document.querySelector(`.tag-close[data-id="${id}"]`);
 
   tagClose.addEventListener("click", () => {
     tagChoice.splice(tagChoice.indexOf(id), 1);
     tagToRemove.remove();
   });
+}
+
+function toogleSearch(element) {
+  element.forEach((elem) => {
+    elem.addEventListener("click", (event) => {
+      event.stopPropagation();
+      elem.querySelector(".tag-search").style.display = "block";
+      elem.querySelector(".tag-search-name").style.display = "none";
+      setTimeout(() => {
+        elem.querySelector(".tag-search").focus();
+      }, 250);
+
+      if (elem == tagSearchButtonAppareils) {
+        inputIngredients.style.display = "none";
+        inputUstensiles.style.display = "none";
+        inputNameIngredients.style.display = "block";
+        inputNameUstensiles.style.display = "block";
+        dropdownIngredients.hide();
+        dropdownAppareils.show();
+        dropdownUstensiles.hide();
+      }
+      if (elem == tagSearchButtonIngredients) {
+        inputAppareils.style.display = "none";
+        inputUstensiles.style.display = "none";
+        inputNameAppareils.style.display = "block";
+        inputNameUstensiles.style.display = "block";
+        dropdownAppareils.hide();
+        dropdownIngredients.show();
+        dropdownUstensiles.hide();
+      }
+      if (elem == tagSearchButtonUstensiles) {
+        inputAppareils.style.display = "none";
+        inputIngredients.style.display = "none";
+        inputNameAppareils.style.display = "block";
+        inputNameIngredients.style.display = "block";
+        dropdownAppareils.hide();
+        dropdownIngredients.hide();
+        dropdownUstensiles.show();
+      }
+    });
+  });
+}
+
+function hideAll() {
+  tagsSearch.forEach((elem) => {
+    elem.style.display = "none";
+  });
+  tagsSearchName.forEach((elem) => {
+    elem.style.display = "block";
+  });
+  dropdownAppareils.hide();
+  dropdownIngredients.hide();
+  dropdownUstensiles.hide();
+}
+
+function getAllTagsChoice() {
+  return [
+    ...tagsChoiceAppareils,
+    ...tagsChoiceIngredients,
+    ...tagsChoiceUstensiles,
+  ];
 }

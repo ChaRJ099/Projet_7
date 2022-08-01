@@ -46,81 +46,58 @@
         <div class="btn-group btn-group-tag group-ingredients">
           <button
             type="button"
-            class="btn btn-primary tag-search-button tag-search-ingredients"
+            class="btn btn-primary tag-search-button tag-search-ingredients dropdown-toggle p-3"
           >
-            <span class="tag-search-name">Ingrédient</span>
+            <span class="tag-search-name">Ingrédients</span>
             <input
               class="tag-search"
               type="search"
-              placeholder="Search"
+              placeholder="Rechercher un ingrédient"
               aria-label="Search"
             />
+            <i class="fa-solid fa-angle-down"></i>
+            <i class="fa-solid fa-angle-up"></i>
           </button>
-          <button
-            type="button"
-            class="btn btn-primary dropdown-toggle dropdown-toggle-split"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            data-bs-reference="parent"
-            data-bs-auto-close="outside"
-          >
-            <span class="visually-hidden">Toggle Dropdown</span>
-          </button>
-          <div class="dropdown-menu">
+          <div class="dropdown-menu bg-primary">
             <ul class="d-flex list-ingredients tag-list p-0"></ul>
           </div>
         </div>
         <div class="btn-group btn-group-tag group-appareils">
           <button
             type="button"
-            class="btn btn-marine tag-search-button tag-search-appareils"
+            class="btn btn-marine tag-search-button tag-search-appareils p-3 dropdown-toggle"
           >
             <span class="tag-search-name">Appareils</span>
             <input
               class="tag-search"
               type="search"
-              placeholder="Search"
+              placeholder="Rechercher un appareil"
               aria-label="Search"
             />
+            <i class="fa-solid fa-angle-down"></i>
+            <i class="fa-solid fa-angle-up"></i>
           </button>
-          <button
-            type="button"
-            class="btn btn-marine dropdown-toggle dropdown-toggle-split"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            data-bs-reference="parent"
-            data-bs-auto-close="outside"
-          >
-            <span class="visually-hidden">Toggle Dropdown</span>
-          </button>
-          <div class="dropdown-menu">
+
+          <div class="dropdown-menu bg-marine">
             <ul class="d-flex list-appareils tag-list p-0"></ul>
           </div>
         </div>
         <div class="btn-group btn-group-tag group-ustensiles">
           <button
             type="button"
-            class="btn btn-tomato tag-search-button tag-search-ustensiles"
+            class="btn btn-tomato tag-search-button tag-search-ustensiles p-3 dropdown-toggle"
           >
             <span class="tag-search-name">Ustensiles</span>
             <input
               class="tag-search"
               type="search"
-              placeholder="Search"
+              placeholder="Rechercher un ustensile"
               aria-label="Search"
             />
+            <i class="fa-solid fa-angle-down"></i>
+            <i class="fa-solid fa-angle-up"></i>
           </button>
-          <button
-            type="button"
-            class="btn btn-tomato dropdown-toggle dropdown-toggle-split"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            data-bs-reference="parent"
-            data-bs-auto-close="outside"
-          >
-            <span class="visually-hidden">Toggle Dropdown</span>
-          </button>
-          <div class="dropdown-menu">
+          <div class="dropdown-menu bg-tomato">
             <ul class="d-flex list-ustensiles tag-list p-0"></ul>
           </div>
         </div>
