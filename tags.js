@@ -62,24 +62,9 @@ const dropdownAppareils = new bootstrap.Dropdown(dropdownToggleAppareils);
 const dropdownUstensiles = new bootstrap.Dropdown(dropdownToggleUstensiles);
 
 // le tableau de tag
-const tagsIngredients = [];
-const tagsAppareils = [];
-const tagsUstensiles = [];
-
-// Récupère tous les ingrédients (même les doublons)
-getTagsIngredients();
-getTagsAppareils();
-getTagsUstensiles();
-
-// Filtre les ingrédients pour enlever les doublons
-const filteredIngredients = filterTags(tagsIngredients);
-const filteredAppareils = filterTags(tagsAppareils);
-const filteredUstensiles = filterTags(tagsUstensiles);
-
-// tableau de tag sélectionnés initialisé a vide
-const tagsChoiceIngredients = [];
-const tagsChoiceAppareils = [];
-const tagsChoiceUstensiles = [];
+let tagsIngredients = [];
+let tagsAppareils = [];
+let tagsUstensiles = [];
 
 // observe si un changement a lieu dans les tags et lance addTagEvent
 const appareilObserver = new MutationObserver(function () {
@@ -114,22 +99,6 @@ ustensilesObserver.observe(tagListUstensiles, {
   subtree: true,
   childList: true,
 });
-
-// permet de créer la liste de tag
-const listFactory = {
-  createTag(tag, elem) {
-    const listElem = document.createElement("li");
-    listElem.classList.add("dropdown-item");
-
-    listElem.textContent = tag;
-    document.querySelector(elem).appendChild(listElem);
-  },
-};
-
-// initialise les tags
-createTag(filteredIngredients, ".list-ingredients");
-createTag(filteredAppareils, ".list-appareils");
-createTag(filteredUstensiles, ".list-ustensiles");
 
 toogleSearch(tagSearchButton);
 
@@ -191,8 +160,34 @@ tagsSearch.forEach((elem) => {
   });
 });
 
+// permet de créer la liste de tag
+const listFactory = {
+  createTag(tag, elem) {
+    const listElem = document.createElement("li");
+    listElem.classList.add("dropdown-item");
+
+    listElem.textContent = tag;
+    document.querySelector(elem).appendChild(listElem);
+  },
+};
+
+// Filtre les ingrédients pour enlever les doublons
+let filteredIngredients = [];
+let filteredAppareils = [];
+let filteredUstensiles = [];
+
+getTagsIngredients(recipes);
+getTagsAppareils(recipes);
+getTagsUstensiles(recipes);
+
+// tableau de tag sélectionnés initialisé a vide
+let tagsChoiceIngredients = [];
+let tagsChoiceAppareils = [];
+let tagsChoiceUstensiles = [];
+
 // pour chaque element du tableau tag on lance tag factory
 function createTag(tags, elem) {
+  document.querySelector(elem).innerHTML = "";
   for (let i = 0; i < tags.length; i++) {
     listFactory.createTag(tags[i], elem);
   }
@@ -228,33 +223,50 @@ function addTagEvent(dropdownItems, tagChoice, tagClass) {
         tagChoice.push(event.target.textContent);
         tagsContainer.appendChild(tagElement);
         tagElement.appendChild(closeIcon);
-        console.log(tagChoice);
         removeTag(event.target.textContent, tagChoice);
       }
     });
   });
 }
 
-function getTagsIngredients() {
-  for (let i = 0; i < recipes.length; i++) {
-    for (let n = 0; n < recipes[i].ingredients.length; n++) {
-      tagsIngredients.push(recipes[i].ingredients[n].ingredient);
+function getTagsIngredients(data) {
+  tagsIngredients = [];
+  filteredIngredients = [];
+  if (data.length > 0) {
+    for (let i = 0; i < data.length; i++) {
+      for (let n = 0; n < data[i].ingredients.length; n++) {
+        tagsIngredients.push(data[i].ingredients[n].ingredient);
+      }
     }
+    filteredIngredients = filterTags(tagsIngredients);
   }
+  createTag(filteredIngredients, ".list-ingredients");
 }
 
-function getTagsAppareils() {
-  for (let i = 0; i < recipes.length; i++) {
-    tagsAppareils.push(recipes[i].appliance);
+function getTagsAppareils(data) {
+  tagsAppareils = [];
+  filteredAppareils = [];
+  if (data.length > 0) {
+    for (let i = 0; i < data.length; i++) {
+      tagsAppareils.push(data[i].appliance);
+    }
+    filteredAppareils = filterTags(tagsAppareils);
   }
+  createTag(filteredAppareils, ".list-appareils");
 }
 
-function getTagsUstensiles() {
-  for (let i = 0; i < recipes.length; i++) {
-    for (let n = 0; n < recipes[i].ustensils.length; n++) {
-      tagsUstensiles.push(recipes[i].ustensils[n]);
+function getTagsUstensiles(data) {
+  tagsUstensiles = [];
+  filteredUstensiles = [];
+  if (data.length > 0) {
+    for (let i = 0; i < data.length; i++) {
+      for (let n = 0; n < data[i].ustensils.length; n++) {
+        tagsUstensiles.push(data[i].ustensils[n]);
+      }
     }
+    filteredUstensiles = filterTags(tagsUstensiles);
   }
+  createTag(filteredUstensiles, ".list-ustensiles");
 }
 
 function filterTags(tags) {
@@ -326,10 +338,10 @@ function hideAll() {
   dropdownUstensiles.hide();
 }
 
-function getAllTagsChoice() {
-  return [
-    ...tagsChoiceAppareils,
-    ...tagsChoiceIngredients,
-    ...tagsChoiceUstensiles,
-  ];
-}
+// function getAllTagsChoice() {
+//   return [
+//     ...tagsChoiceAppareils,
+//     ...tagsChoiceIngredients,
+//     ...tagsChoiceUstensiles,
+//   ];
+// }
