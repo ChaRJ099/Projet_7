@@ -1,7 +1,7 @@
-// init calcul temps
-let t0 = performance.now();
-
 function filterRecipe(searchValue) {
+  // init calcul temps
+  let t0 = performance.now();
+
   let searchFiltered = [];
   for (i = 0, n = searchResults.length; i < n; i++) {
     if (searchResults[i].name.indexOf(searchValue) != -1) {
@@ -25,9 +25,8 @@ function filterRecipe(searchValue) {
   }
 
   searchResults = searchFiltered;
+  // calcul du temps
+  let t1 = performance.now();
+  let totalTime = t1 - t0;
+  console.log("temps: " + totalTime + " millisecondes.");
 }
-
-// calcul du temps
-let t1 = performance.now();
-let totalTime = t1 - t0;
-console.log("temps: " + totalTime + " millisecondes.");
