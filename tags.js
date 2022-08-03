@@ -71,7 +71,12 @@ const appareilObserver = new MutationObserver(function () {
   let dropdownItemsAppareils = document.querySelectorAll(
     ".group-appareils .dropdown-item"
   );
-  addTagEvent(dropdownItemsAppareils, tagsChoiceAppareils, "tag-elem_marine");
+  addTagEvent(
+    dropdownItemsAppareils,
+    tagsChoiceAppareils,
+    "tag-elem_marine",
+    "appareilsArray"
+  );
 });
 const ingredientObserver = new MutationObserver(function () {
   let dropdownItemsIngredients = document.querySelectorAll(
@@ -80,14 +85,20 @@ const ingredientObserver = new MutationObserver(function () {
   addTagEvent(
     dropdownItemsIngredients,
     tagsChoiceIngredients,
-    "tag-elem_primary"
+    "tag-elem_primary",
+    "ingredientsArray"
   );
 });
 const ustensilesObserver = new MutationObserver(function () {
   let dropdownItemsUstensiles = document.querySelectorAll(
     ".group-ustensiles .dropdown-item"
   );
-  addTagEvent(dropdownItemsUstensiles, tagsChoiceUstensiles, "tag-elem_tomato");
+  addTagEvent(
+    dropdownItemsUstensiles,
+    tagsChoiceUstensiles,
+    "tag-elem_tomato",
+    "ustensilesArray"
+  );
 });
 
 appareilObserver.observe(tagListAppareils, { subtree: true, childList: true });
@@ -176,9 +187,7 @@ let filteredIngredients = [];
 let filteredAppareils = [];
 let filteredUstensiles = [];
 
-getTagsIngredients(recipes);
-getTagsAppareils(recipes);
-getTagsUstensiles(recipes);
+getAllTags(searchResults);
 
 // tableau de tag sélectionnés initialisé a vide
 let tagsChoiceIngredients = [];
@@ -194,7 +203,7 @@ function createTag(tags, elem) {
 }
 
 // pour chaque tag on ajoute un event au click pour permettre d'ajouter le tag au tag selectionné
-function addTagEvent(dropdownItems, tagChoice, tagClass) {
+function addTagEvent(dropdownItems, tagChoice, tagClass, arrayName) {
   dropdownItems.forEach((elem) => {
     elem.addEventListener("click", (event) => {
       const tagElement = document.createElement("div");
@@ -219,11 +228,14 @@ function addTagEvent(dropdownItems, tagChoice, tagClass) {
       const tagFound = tagChoice.find((elem) => {
         return elem == event.target.textContent;
       });
+
+      // Si le tag sur lequel on clique n'est pas encore sélectionné, on l'ajoute aux tags choisis sous la barre de recherche
       if (tagFound == undefined) {
         tagChoice.push(event.target.textContent);
         tagsContainer.appendChild(tagElement);
         tagElement.appendChild(closeIcon);
-        removeTag(event.target.textContent, tagChoice);
+        filterByTag(searchResults);
+        removeTagOnClick(event.target.textContent, tagChoice);
       }
     });
   });
@@ -275,13 +287,25 @@ function filterTags(tags) {
   });
 }
 
-function removeTag(id, tagChoice) {
+function removeTagOnClick(id, tagChoice) {
   const tagToRemove = document.querySelector(`.tag-elem[data-id="${id}"]`);
   const tagClose = document.querySelector(`.tag-close[data-id="${id}"]`);
 
   tagClose.addEventListener("click", () => {
     tagChoice.splice(tagChoice.indexOf(id), 1);
     tagToRemove.remove();
+
+    //On reset les results
+    searchResults = recipes;
+
+    // si l'input de recherche est > 3 on lance la recherche
+    if (document.querySelector(".input-search").value.length >= 3) {
+      filterRecipe(document.querySelector(".input-search").value);
+      getRecipes(searchResults);
+    }
+
+    // on filtre par tags
+    filterByTag(searchResults);
   });
 }
 
@@ -338,10 +362,101 @@ function hideAll() {
   dropdownUstensiles.hide();
 }
 
-// function getAllTagsChoice() {
-//   return [
-//     ...tagsChoiceAppareils,
-//     ...tagsChoiceIngredients,
-//     ...tagsChoiceUstensiles,
-//   ];
-// }
+function filterByTag(searchResults) {
+  if (tagsChoiceIngredients.length > 0) {
+    tagsChoiceIngredients.forEach((tagChoice) => {
+      searchResults = searchResults.filter((result) => {
+        let isValue = false;
+
+        result.ingredients.forEach((ingredient) => {
+          if (ingredient.ingredient.indexOf(tagChoice) != -1) {
+            return (isValue = true);
+          }
+        });
+
+        return isValue;
+      });
+    });
+
+    if (searchResults.length >= 1) {
+      getRecipes(searchResults);
+    } else {
+      recipeContainer.textContent = "Aucun résultat";
+    }
+  }
+
+  if (tagsChoiceAppareils.length > 0) {
+    tagsChoiceAppareils.forEach((tagChoice) => {
+      searchResults = searchResults.filter((result) => {
+        let isValue = false;
+
+        if (result.appliance.indexOf(tagChoice) != -1) {
+          return (isValue = true);
+        }
+
+        return isValue;
+      });
+    });
+
+    if (searchResults.length >= 1) {
+      getRecipes(searchResults);
+    } else {
+      recipeContainer.textContent = "Aucun résultat";
+    }
+  }
+
+  if (tagsChoiceUstensiles.length > 0) {
+    tagsChoiceUstensiles.forEach((tagChoice) => {
+      searchResults = searchResults.filter((result) => {
+        let isValue = false;
+
+        result.ustensils.forEach((unstensil) => {
+          if (unstensil.indexOf(tagChoice) != -1) {
+            return (isValue = true);
+          }
+        });
+
+        return isValue;
+      });
+    });
+
+    if (searchResults.length >= 1) {
+      getRecipes(searchResults);
+    } else {
+      recipeContainer.textContent = "Aucun résultat";
+    }
+  }
+  getAllTags(searchResults);
+  if (document.querySelector(".input-search").value.length < 3 && !hasTags()) {
+    resetResults();
+  }
+}
+
+function getAllTags(searchResults) {
+  getTagsIngredients(searchResults);
+  getTagsAppareils(searchResults);
+  getTagsUstensiles(searchResults);
+}
+
+function resetResults() {
+  getRecipes(recipes);
+  getAllTags(recipes);
+}
+
+function hasTags() {
+  const allTagsArray = [
+    ...tagsChoiceAppareils,
+    ...tagsChoiceIngredients,
+    ...tagsChoiceUstensiles,
+  ];
+  if (allTagsArray.length > 0) {
+    return true;
+  }
+  return false;
+}
+
+function removeAllTags() {
+  const allTags = document.querySelectorAll(".tag-elem");
+
+  allTags.forEach((elem) => elem.remove());
+}
