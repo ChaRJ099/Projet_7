@@ -1,25 +1,26 @@
 const inputSearch = document.querySelector(".input-search");
-const alert = document.querySelector(".alert");
 
 document.querySelector(".input-search").value = "";
 
 inputSearch.addEventListener("input", (event) => {
   if (event.target.value.length >= 3) {
+    searchResults = recipes;
     if (hasTags()) {
-      searchResults = recipes;
-      removeAllTags();
+      removeAllTagsChoice();
     }
     filterRecipe(event.target.value);
 
     if (searchResults.length >= 1) {
       getRecipes(searchResults);
-      alert.classList.add("d-none");
+      getAllTags(searchResults);
+      setError(false);
     } else {
-      searchResults = recipes;
-      alert.classList.remove("d-none");
+      getAllTags("");
+      recipeContainer.innerHTML = "";
+      setError(true);
     }
   } else {
     resetResults();
-    alert.classList.add("d-none");
+    setError(false);
   }
 });

@@ -55,6 +55,7 @@ const dropdownMenuUstensiles = document.querySelector(
   ".group-ustensiles .dropdown-menu"
 );
 const btnIconUp = document.querySelectorAll(".btn-group-tag .fa-angle-up");
+const alert = document.querySelector(".alert");
 
 // Créé un objet dropdown qui hérite des méthodes de bootstrap dropdown
 const dropdownIngredients = new bootstrap.Dropdown(dropdownToggleIngredients);
@@ -301,7 +302,10 @@ function removeTagOnClick(id, tagChoice) {
     // si l'input de recherche est > 3 on lance la recherche
     if (document.querySelector(".input-search").value.length >= 3) {
       filterRecipe(document.querySelector(".input-search").value);
-      getRecipes(searchResults);
+
+      if (searchResults.length > 0) {
+        getRecipes(searchResults);
+      }
     }
 
     // on filtre par tags
@@ -380,8 +384,9 @@ function filterByTag(searchResults) {
 
     if (searchResults.length >= 1) {
       getRecipes(searchResults);
+      setError(false);
     } else {
-      recipeContainer.textContent = "Aucun résultat";
+      setError(true);
     }
   }
 
@@ -400,8 +405,9 @@ function filterByTag(searchResults) {
 
     if (searchResults.length >= 1) {
       getRecipes(searchResults);
+      setError(false);
     } else {
-      recipeContainer.textContent = "Aucun résultat";
+      setError(true);
     }
   }
 
@@ -422,8 +428,9 @@ function filterByTag(searchResults) {
 
     if (searchResults.length >= 1) {
       getRecipes(searchResults);
+      setError(false);
     } else {
-      recipeContainer.textContent = "Aucun résultat";
+      setError(true);
     }
   }
   getAllTags(searchResults);
@@ -439,6 +446,7 @@ function getAllTags(searchResults) {
 }
 
 function resetResults() {
+  searchResults = recipes;
   getRecipes(recipes);
   getAllTags(recipes);
 }
@@ -455,8 +463,25 @@ function hasTags() {
   return false;
 }
 
-function removeAllTags() {
+function removeAllTagsChoice() {
   const allTags = document.querySelectorAll(".tag-elem");
 
   allTags.forEach((elem) => elem.remove());
+  tagsChoiceAppareils = [];
+  tagsChoiceIngredients = [];
+  tagsChoiceUstensiles = [];
+}
+
+function setError(bool) {
+  if (!bool) {
+    alert.classList.add("d-none");
+    tagSearchButton.forEach((elem) => {
+      elem.removeAttribute("disabled", "");
+    });
+  } else {
+    alert.classList.remove("d-none");
+    tagSearchButton.forEach((elem) => {
+      elem.setAttribute("disabled", "");
+    });
+  }
 }
