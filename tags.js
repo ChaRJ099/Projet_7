@@ -8,29 +8,19 @@ const tagSearchButtonAppareils = document.querySelector(
 const tagSearchButtonUstensiles = document.querySelector(
   ".tag-search-ustensiles"
 );
-const tagsSearchName = document.querySelectorAll(".tag-search-name");
 const tagsContainer = document.querySelector(".tags-container");
-const tagsSearch = document.querySelectorAll(".tag-search");
+const tagsSearch = document.querySelectorAll(".tag-search-input-container");
 const tagsSearchIngredients = document.querySelector(".tag-search-ingredients");
 const tagsSearchAppareils = document.querySelector(".tag-search-appareils");
 const tagsSearchUstensiles = document.querySelector(".tag-search-ustensiles");
 const inputIngredients = document.querySelector(
-  ".tag-search-ingredients .tag-search"
+  ".group-ingredients .tag-search-input-container"
 );
 const inputAppareils = document.querySelector(
-  ".tag-search-appareils .tag-search"
+  ".group-appareils .tag-search-input-container"
 );
 const inputUstensiles = document.querySelector(
-  ".tag-search-ustensiles .tag-search"
-);
-const inputNameIngredients = document.querySelector(
-  ".tag-search-ingredients .tag-search-name"
-);
-const inputNameAppareils = document.querySelector(
-  ".tag-search-appareils .tag-search-name"
-);
-const inputNameUstensiles = document.querySelector(
-  ".tag-search-ustensiles .tag-search-name"
+  ".group-ustensiles .tag-search-input-container"
 );
 const tagListAppareils = document.querySelector(".list-appareils");
 const tagListIngredients = document.querySelector(".list-ingredients");
@@ -317,35 +307,35 @@ function toogleSearch(element) {
   element.forEach((elem) => {
     elem.addEventListener("click", (event) => {
       event.stopPropagation();
-      elem.querySelector(".tag-search").style.display = "block";
-      elem.querySelector(".tag-search-name").style.display = "none";
+      elem.nextSibling.nextSibling.style.display = "flex";
+      elem.classList.add("tag-search-button-hidden");
       setTimeout(() => {
-        elem.querySelector(".tag-search").focus();
+        elem.nextSibling.nextSibling.querySelector(".tag-search").focus();
       }, 250);
 
       if (elem == tagSearchButtonAppareils) {
+        tagSearchButtonIngredients.classList.remove("tag-search-button-hidden");
+        tagSearchButtonUstensiles.classList.remove("tag-search-button-hidden");
         inputIngredients.style.display = "none";
         inputUstensiles.style.display = "none";
-        inputNameIngredients.style.display = "block";
-        inputNameUstensiles.style.display = "block";
         dropdownIngredients.hide();
         dropdownAppareils.show();
         dropdownUstensiles.hide();
       }
       if (elem == tagSearchButtonIngredients) {
+        tagSearchButtonAppareils.classList.remove("tag-search-button-hidden");
+        tagSearchButtonUstensiles.classList.remove("tag-search-button-hidden");
         inputAppareils.style.display = "none";
         inputUstensiles.style.display = "none";
-        inputNameAppareils.style.display = "block";
-        inputNameUstensiles.style.display = "block";
         dropdownAppareils.hide();
         dropdownIngredients.show();
         dropdownUstensiles.hide();
       }
       if (elem == tagSearchButtonUstensiles) {
+        tagSearchButtonAppareils.classList.remove("tag-search-button-hidden");
+        tagSearchButtonIngredients.classList.remove("tag-search-button-hidden");
         inputAppareils.style.display = "none";
         inputIngredients.style.display = "none";
-        inputNameAppareils.style.display = "block";
-        inputNameIngredients.style.display = "block";
         dropdownAppareils.hide();
         dropdownIngredients.hide();
         dropdownUstensiles.show();
@@ -355,11 +345,9 @@ function toogleSearch(element) {
 }
 
 function hideAll() {
-  tagsSearch.forEach((elem) => {
-    elem.style.display = "none";
-  });
-  tagsSearchName.forEach((elem) => {
-    elem.style.display = "block";
+  tagSearchButton.forEach((elem) => {
+    elem.nextSibling.nextSibling.style.display = "none";
+    elem.classList.remove("tag-search-button-hidden");
   });
   dropdownAppareils.hide();
   dropdownIngredients.hide();

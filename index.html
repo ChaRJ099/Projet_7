@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fre">
+<html lang="fr">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
@@ -21,7 +21,7 @@
   </head>
   <body class="container-xxl">
     <header class="header">
-      <img src="assets/images/Logo_Les_petits_plats.jpg" />
+      <img src="assets/images/Logo_Les_petits_plats.jpg" alt="" />
     </header>
     <main class="main container-fluid">
       <div class="search d-flex flex-column gap-3">
@@ -53,15 +53,19 @@
             class="btn btn-primary tag-search-button tag-search-ingredients dropdown-toggle p-3"
           >
             <span class="tag-search-name">Ingrédients</span>
+
+            <i class="fa-solid fa-angle-down"></i>
+          </button>
+          <div class="tag-search-input-container bg-primary rounded-top">
             <input
               class="tag-search"
               type="search"
               placeholder="Rechercher un ingrédient"
               aria-label="Search"
             />
-            <i class="fa-solid fa-angle-down"></i>
             <i class="fa-solid fa-angle-up"></i>
-          </button>
+          </div>
+
           <div class="dropdown-menu bg-primary">
             <ul class="d-flex list-ingredients tag-list p-0"></ul>
           </div>
@@ -72,15 +76,17 @@
             class="btn btn-marine tag-search-button tag-search-appareils p-3 dropdown-toggle"
           >
             <span class="tag-search-name">Appareils</span>
+            <i class="fa-solid fa-angle-down"></i>
+          </button>
+          <div class="tag-search-input-container bg-marine rounded-top">
             <input
               class="tag-search"
               type="search"
               placeholder="Rechercher un appareil"
               aria-label="Search"
             />
-            <i class="fa-solid fa-angle-down"></i>
             <i class="fa-solid fa-angle-up"></i>
-          </button>
+          </div>
 
           <div class="dropdown-menu bg-marine">
             <ul class="d-flex list-appareils tag-list p-0"></ul>
@@ -92,15 +98,18 @@
             class="btn btn-tomato tag-search-button tag-search-ustensiles p-3 dropdown-toggle"
           >
             <span class="tag-search-name">Ustensiles</span>
+
+            <i class="fa-solid fa-angle-down"></i>
+          </button>
+          <div class="tag-search-input-container bg-tomato rounded-top">
             <input
               class="tag-search"
               type="search"
               placeholder="Rechercher un ustensile"
               aria-label="Search"
             />
-            <i class="fa-solid fa-angle-down"></i>
             <i class="fa-solid fa-angle-up"></i>
-          </button>
+          </div>
           <div class="dropdown-menu bg-tomato">
             <ul class="d-flex list-ustensiles tag-list p-0"></ul>
           </div>
