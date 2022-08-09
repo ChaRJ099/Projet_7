@@ -1,3 +1,4 @@
+// Elements du DOM
 const tagSearchButton = document.querySelectorAll(".tag-search-button");
 const tagSearchButtonIngredients = document.querySelector(
   ".tag-search-ingredients"
@@ -52,22 +53,17 @@ const dropdownIngredients = new bootstrap.Dropdown(dropdownToggleIngredients);
 const dropdownAppareils = new bootstrap.Dropdown(dropdownToggleAppareils);
 const dropdownUstensiles = new bootstrap.Dropdown(dropdownToggleUstensiles);
 
-// le tableau de tag
+// Tableaux de tags
 let tagsIngredients = [];
 let tagsAppareils = [];
 let tagsUstensiles = [];
 
-// observe si un changement a lieu dans les tags et lance addTagEvent
+// Constructeur permettant d’instancier un nouvel observateur de mutations DOM avec fonction callback qui appelle addTagEvent
 const appareilObserver = new MutationObserver(function () {
   let dropdownItemsAppareils = document.querySelectorAll(
     ".group-appareils .dropdown-item"
   );
-  addTagEvent(
-    dropdownItemsAppareils,
-    tagsChoiceAppareils,
-    "tag-elem_marine",
-    "appareilsArray"
-  );
+  addTagEvent(dropdownItemsAppareils, tagsChoiceAppareils, "tag-elem_marine");
 });
 const ingredientObserver = new MutationObserver(function () {
   let dropdownItemsIngredients = document.querySelectorAll(
@@ -76,22 +72,17 @@ const ingredientObserver = new MutationObserver(function () {
   addTagEvent(
     dropdownItemsIngredients,
     tagsChoiceIngredients,
-    "tag-elem_primary",
-    "ingredientsArray"
+    "tag-elem_primary"
   );
 });
 const ustensilesObserver = new MutationObserver(function () {
   let dropdownItemsUstensiles = document.querySelectorAll(
     ".group-ustensiles .dropdown-item"
   );
-  addTagEvent(
-    dropdownItemsUstensiles,
-    tagsChoiceUstensiles,
-    "tag-elem_tomato",
-    "ustensilesArray"
-  );
+  addTagEvent(dropdownItemsUstensiles, tagsChoiceUstensiles, "tag-elem_tomato");
 });
 
+// Observe si un changement a lieu dans les tags et lance addTagEvent si c'est le cas
 appareilObserver.observe(tagListAppareils, { subtree: true, childList: true });
 ingredientObserver.observe(tagListIngredients, {
   subtree: true,
@@ -102,18 +93,22 @@ ustensilesObserver.observe(tagListUstensiles, {
   childList: true,
 });
 
+// On appelle la fonction toogleSearch
 toogleSearch(tagSearchButton);
 
+// stopPropagation pour éviter les event des éléments parents
 buttonsGroup.forEach((elem) => {
   elem.addEventListener("click", (event) => {
     event.stopPropagation();
   });
 });
 
+// Appelle le fonction hideAll au clic dans le document
 document.addEventListener("click", () => {
   hideAll();
 });
 
+// stopPropagation et hideAll au clic sur chaque elem de btnIconUp (icone angle up)
 btnIconUp.forEach((elem) => {
   elem.addEventListener("click", (event) => {
     event.stopPropagation();
@@ -121,40 +116,57 @@ btnIconUp.forEach((elem) => {
   });
 });
 
+// Pour chaque barre de recherche associées aux listes de tags
 tagsSearch.forEach((elem) => {
   elem.addEventListener("input", (event) => {
+    // S'il s'agit de l'input ingrédients
     if (elem == inputIngredients) {
+      // filtre le tableau de tags ingrédients
       let tagsFilteredIngredient = filteredIngredients.filter((tag) => {
+        // On compare la valeur saisie dans la recherche de tags avec les tags de la liste
         let resultIndex = tag.indexOf(event.target.value);
-        if (resultIndex == 0) {
+        // Si la comparaison retourne une valeur autre que -1 (aucun résultat), on retourne true
+        if (resultIndex != -1) {
           return true;
         }
       });
+      // On réinitialise la liste de tags
       tagListIngredients.innerHTML = "";
+      // Boucle sur tableau de tags filtrés et créé la liste de tags en fonction
       for (let i = 0; i < tagsFilteredIngredient.length; i++) {
         listFactory.createTag(tagsFilteredIngredient[i], ".list-ingredients");
       }
     }
+    // S'il s'agit de l'input appareils
     if (elem == inputAppareils) {
+      // filtre le tableau de tags appareils
       let tagsFilteredAppareils = filteredAppareils.filter((tag) => {
+        // On compare la valeur saisie dans la recherche de tags avec les tags de la liste
         let resultIndex = tag.indexOf(event.target.value);
-        if (resultIndex == 0) {
+        // Si la comparaison retourne une valeur autre que -1 (aucun résultat), on retourne true
+        if (resultIndex != -1) {
           return true;
         }
       });
+      // On réinitialise la liste de tags
       tagListAppareils.innerHTML = "";
+      // Boucle sur tableau de tags filtrés et créé la liste de tags en fonction
       for (let i = 0; i < tagsFilteredAppareils.length; i++) {
         listFactory.createTag(tagsFilteredAppareils[i], ".list-appareils");
       }
     }
+    // S'il s'agit de l'input ustensils
     if (elem == inputUstensiles) {
+      // filtre le tableau de tags ustensils
       let tagsFilteredUstensiles = filteredUstensiles.filter((tag) => {
         let resultIndex = tag.indexOf(event.target.value);
-        if (resultIndex == 0) {
+        if (resultIndex != -1) {
           return true;
         }
       });
+      // On réinitialise la liste de tags
       tagListUstensiles.innerHTML = "";
+      // Boucle sur tableau de tags filtrés et créé la liste de tags en fonction
       for (let i = 0; i < tagsFilteredUstensiles.length; i++) {
         listFactory.createTag(tagsFilteredUstensiles[i], ".list-ustensiles");
       }
@@ -162,7 +174,7 @@ tagsSearch.forEach((elem) => {
   });
 });
 
-// permet de créer la liste de tag
+// Permet de créer la liste de tag
 const listFactory = {
   createTag(tag, elem) {
     const listElem = document.createElement("li");
@@ -180,7 +192,7 @@ let filteredUstensiles = [];
 
 getAllTags(searchResults);
 
-// tableau de tag sélectionnés initialisé a vide
+// tableaux des tags sélectionnés initialisés à vide
 let tagsChoiceIngredients = [];
 let tagsChoiceAppareils = [];
 let tagsChoiceUstensiles = [];
@@ -194,7 +206,7 @@ function createTag(tags, elem) {
 }
 
 // pour chaque tag on ajoute un event au click pour permettre d'ajouter le tag au tag selectionné
-function addTagEvent(dropdownItems, tagChoice, tagClass, arrayName) {
+function addTagEvent(dropdownItems, tagChoice, tagClass) {
   dropdownItems.forEach((elem) => {
     elem.addEventListener("click", (event) => {
       const tagElement = document.createElement("div");
@@ -232,6 +244,14 @@ function addTagEvent(dropdownItems, tagChoice, tagClass, arrayName) {
   });
 }
 
+/**
+ * Boucle sur les ingrédients de l'objet data
+ * Pousse les éléments ingrédient dans tagsIngredients
+ * Filtre tagsIngredients et enregistre dans filteredIngredients (-> enlève doublons)
+ * Créer le tag à partir du tableau d'ingrédients filtré
+ *
+ * @param {*} data
+ */
 function getTagsIngredients(data) {
   tagsIngredients = [];
   filteredIngredients = [];
@@ -246,6 +266,15 @@ function getTagsIngredients(data) {
   createTag(filteredIngredients, ".list-ingredients");
 }
 
+/**
+ * Boucle sur les appareils de l'objet data
+ * Pousse les éléments appareil dans tagsAppareils
+ * Filtre tagsAppareils et enregistre dans filteredAppareils (-> enlève doublons)
+ * Créer le tag à partir du tableau d'appareils filtré
+ *
+ * @param {*} data
+ */
+
 function getTagsAppareils(data) {
   tagsAppareils = [];
   filteredAppareils = [];
@@ -257,6 +286,15 @@ function getTagsAppareils(data) {
   }
   createTag(filteredAppareils, ".list-appareils");
 }
+
+/**
+ * Boucle sur les ustensiles de l'objet data
+ * Pousse les éléments ustensile dans tagsUstensils
+ * Filtre tagsUstensils et enregistre dans filteredUstensils (-> enlève doublons)
+ * Créer le tag à partir du tableau d'ustensils filtré
+ *
+ * @param {*} data
+ */
 
 function getTagsUstensiles(data) {
   tagsUstensiles = [];
@@ -272,12 +310,25 @@ function getTagsUstensiles(data) {
   createTag(filteredUstensiles, ".list-ustensiles");
 }
 
+/**
+ * Supprime les doublons dans tags
+ *
+ * @param {*} tags
+ * @returns
+ */
 function filterTags(tags) {
   return tags.filter(function (element, index) {
     return tags.indexOf(element) == index;
   });
 }
 
+/**
+ * Au clic sur tagClose, supprime le tag sous la barre de recherche principale à l'aide de son id
+ * Lance la recherche principale s'il y avait une saisie puis filtre par tag
+ *
+ * @param {*} id
+ * @param {*} tagChoice
+ */
 function removeTagOnClick(id, tagChoice) {
   const tagToRemove = document.querySelector(`.tag-elem[data-id="${id}"]`);
   const tagClose = document.querySelector(`.tag-close[data-id="${id}"]`);
@@ -303,12 +354,21 @@ function removeTagOnClick(id, tagChoice) {
   });
 }
 
+/**
+ * Au clic, pour chaque input des trois boutons :
+ * Affiche l'input de recherche avancée du bouton cliqué
+ * Affiche la liste de tags du bouton cliqué
+ * Cache les listes des deux autres boutons
+ *
+ * @param {*} element
+ */
 function toogleSearch(element) {
   element.forEach((elem) => {
     elem.addEventListener("click", (event) => {
       event.stopPropagation();
       elem.nextSibling.nextSibling.style.display = "flex";
       elem.classList.add("tag-search-button-hidden");
+      // Override le focus auto du dropdown pour cibler l'input de recherche
       setTimeout(() => {
         elem.nextSibling.nextSibling.querySelector(".tag-search").focus();
       }, 250);
@@ -344,6 +404,7 @@ function toogleSearch(element) {
   });
 }
 
+// Cache toutes les listes de tags pour chacun des dropdowns
 function hideAll() {
   tagSearchButton.forEach((elem) => {
     elem.nextSibling.nextSibling.style.display = "none";
@@ -354,22 +415,32 @@ function hideAll() {
   dropdownUstensiles.hide();
 }
 
+/**
+ * Recherche avancée prenant en compte les tags sélectionnés
+ *
+ * @param {*} searchResults
+ */
 function filterByTag(searchResults) {
+  // S'il y a au moins un tag dans le tableau des tags "ingrédients" sélectionnés
   if (tagsChoiceIngredients.length > 0) {
+    // Pour chaque tag de ce tableau
     tagsChoiceIngredients.forEach((tagChoice) => {
+      // Filtre les résultats de la recherche principale
       searchResults = searchResults.filter((result) => {
         let isValue = false;
-
+        // Pour chaque ingrédient de chaque recette en résultat de recherche principale
         result.ingredients.forEach((ingredient) => {
+          // Si correspondance entre le tag ingrédient choisi et un des ingrédients de la recette
           if (ingredient.ingredient.indexOf(tagChoice) != -1) {
+            // Assigne true à isValue (la méthode filter attend un booléen)
             return (isValue = true);
           }
         });
-
+        // Retourne isValue (si true, ajout à searchResults, sinon n'est pas ajouté)
         return isValue;
       });
     });
-
+    // Si au moins un résultat trouvé, affiche la recette du résultat de recherche et cache le message d'erreur. Sinon, affiche le message d'erreur et bloque les boutons de tags
     if (searchResults.length >= 1) {
       getRecipes(searchResults);
       setError(false);
@@ -378,19 +449,23 @@ function filterByTag(searchResults) {
     }
   }
 
+  // S'il y a au moins un tag dans le tableau des tags "appareils" sélectionnés
   if (tagsChoiceAppareils.length > 0) {
+    // Pour chaque tag de ce tableau
     tagsChoiceAppareils.forEach((tagChoice) => {
+      // Filtre les résultats de la recherche principale
       searchResults = searchResults.filter((result) => {
         let isValue = false;
-
+        // Si correspondance entre le tag appareil choisi et un des appareils de la recette
         if (result.appliance.indexOf(tagChoice) != -1) {
+          // Assigne true à isValue (la méthode filter attend un booléen)
           return (isValue = true);
         }
-
+        // Retourne isValue (si true, ajout à searchResults, sinon n'est pas ajouté)
         return isValue;
       });
     });
-
+    //Si au moins un résultat trouvé, affiche la recette du résultat de recherche et cache le message d'erreur. Sinon, affiche le message d'erreur et bloque les boutons de tags
     if (searchResults.length >= 1) {
       getRecipes(searchResults);
       setError(false);
@@ -398,7 +473,7 @@ function filterByTag(searchResults) {
       setError(true);
     }
   }
-
+  // S'il y a au moins un tag dans le tableau des tags "ustensiles" sélectionnés
   if (tagsChoiceUstensiles.length > 0) {
     tagsChoiceUstensiles.forEach((tagChoice) => {
       searchResults = searchResults.filter((result) => {
@@ -421,24 +496,34 @@ function filterByTag(searchResults) {
       setError(true);
     }
   }
+  // cf. fonction)
   getAllTags(searchResults);
+  // Si la valeur saisie dans la recherche principale est inérieure à trois caractères et qu'il n'y a pas de tags sélectionnés :
   if (document.querySelector(".input-search").value.length < 3 && !hasTags()) {
+    // ...on réinitialise les recettes affichées (toutes les recettes non filtrées)
     resetResults();
   }
 }
 
+/**
+ * Permet de récupérer, avec une seule fonction, les tags des trois tableaux de tags filtrés
+ *
+ * @param {*} searchResults
+ */
 function getAllTags(searchResults) {
   getTagsIngredients(searchResults);
   getTagsAppareils(searchResults);
   getTagsUstensiles(searchResults);
 }
 
+// Permet de réinitialiser le contenu de la page des recettes et des listes de tags au point de départ, sans filtres.
 function resetResults() {
   searchResults = recipes;
   getRecipes(recipes);
   getAllTags(recipes);
 }
 
+// Détecte s'il y a des tags selectionnés
 function hasTags() {
   const allTagsArray = [
     ...tagsChoiceAppareils,
@@ -451,6 +536,7 @@ function hasTags() {
   return false;
 }
 
+// Supprime tous les tags des tableaux contenant les tags sélectionnés
 function removeAllTagsChoice() {
   const allTags = document.querySelectorAll(".tag-elem");
 
@@ -460,6 +546,11 @@ function removeAllTagsChoice() {
   tagsChoiceUstensiles = [];
 }
 
+/**
+ * Si setError est true, affiche le message d'erreur et rend les boutons de recherches de tags inutilisables
+ *
+ * @param {*} bool
+ */
 function setError(bool) {
   if (!bool) {
     alert.classList.add("d-none");
