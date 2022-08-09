@@ -45,8 +45,11 @@ const recipeFactory = {
     recipesContainer.appendChild(col);
 
     const ingredients = data.ingredients;
+
+    // Permet de sélectionner la bonne liste d'ingrédients en fonction de l'index passé en paramètre de la fonction displayRecipe
     const ingredientContainer = document.querySelector(".ingredient-list-" + i);
 
+    // Boucle sur le tableau ingrédients
     for (let i = 0; i < ingredients.length; i++) {
       const ingredientElem = document.createElement("li");
       const liChild = document.createElement("div");
@@ -57,14 +60,18 @@ const recipeFactory = {
         "ingredient-" + i
       );
       liChild.classList.add("d-flex", "m-0", "ingredient", "elem-" + i);
+      // Initialise les valeurs de "quantity" et "unit" à vide par défaut
       let quantity = "";
       let unit = "";
 
+      // Si présence d'une valeur pour l'attribut quantity de l'élément du tableau ingrédients
       if (ingredients[i].quantity) {
+        // On assigne la valeur de l'attribut quantity à la variable "quantity"
         quantity = ":&thinsp;" + ingredients[i].quantity;
       }
-
+      // Si présence d'une valeur pour l'attribut unit de l'élément du tableau ingrédients
       if (ingredients[i].unit) {
+        // On assigne la valeur de l'attribut unit à la variable "unit"
         unit = ingredients[i].unit;
       }
 
